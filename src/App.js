@@ -1,14 +1,16 @@
-import Header from "./components/Header";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Navigate  } from  "react-router-dom"; 
+import HomePage from "./pages/HomePage.jsx";
 
 function App() {
   return (
     <>
-    <div className="bg-black">
-    <h1 className="text-7xl text-center text-blue-400">Hello</h1>
-    </div>
-
-    <Header></Header>
-
+      <Router>
+        <Routes>
+        <Route path="/" element={<Navigate to="/homepage" />} />
+          <Route path="/homepage" element={<HomePage />} />
+        </Routes>
+      </Router>
     </>
   );
 }
