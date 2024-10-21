@@ -7,7 +7,7 @@ const FirstBanner = () => {
         {/* header nav bar */}
             <Header></Header>
 
-            <div className="bg-[#f4e3c9] h-[90vh] flex items-center justify-center px-6 md:px-12 lg:px-24 rounded-b-3xl">
+            <div className="bg-[#f4e3c9]  flex items-center justify-center px-6 md:px-12 lg:px-24 rounded-b-3xl">
                 <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">
 
 
@@ -37,7 +37,8 @@ const FirstBanner = () => {
 
                     {/* Right Side: Image */}
                     <div className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end">
-                        <img src={w_w_dog} alt="Woman holding a dog" className="max-h-[80vh] object-cover" />
+                    <img src={w_w_dog} alt="Woman holding a dog" className="h-full w-full object-cover" />
+
                     </div>
                 </div>
             </div>

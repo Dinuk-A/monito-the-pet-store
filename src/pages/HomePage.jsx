@@ -16,17 +16,16 @@ const HomePage = () => {
       {/* dogs cards list */}
       <PetsShow />
 
-      {/* 2nd banner  */}
-      <div className="bg-blue-500 h-[90vh] flex items-center justify-center px-6 md:px-12 lg:px-24 rounded-b-3xl">
-        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">
+      {/* 2nd banner */}
+      <div className=" mx-auto flex items-center justify-center px-4 md:px-12 lg:px-24 rounded-b-3xl mt-8 ">
+        <div className="container bg-blue-500 mx-auto flex flex-col lg:flex-row items-center justify-between">
 
-          {/* left Side: Image */}
+          {/* Left Side: Image */}
           <div className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end">
             <img src={sec_pic} alt="Woman holding a dog" className="max-h-[80vh] object-cover" />
           </div>
 
-
-          {/* right Side: Text and Buttons */}
+          {/* Right Side: Text and Buttons */}
           <div className="lg:w-1/2">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#072D50] mb-4">
               One More Friend <span className="mt-0 text-3xl"> Thousands More Fun!</span>
@@ -40,7 +39,6 @@ const HomePage = () => {
             <div className="flex space-x-4">
               <button className="border-2 border-[#072D50] text-[#072D50] font-medium px-6 py-3 rounded-full flex items-center hover:bg-[#072D50] hover:text-white transition duration-300">
                 View Intro +
-
               </button>
               <button className="bg-[#072D50] text-white font-medium px-6 py-3 rounded-full hover:bg-[#091A3C] transition duration-300">
                 Explore Now
@@ -50,6 +48,7 @@ const HomePage = () => {
         </div>
       </div>
       {/* 2nd banner ends */}
+
 
       {/* products cards list */}
       <ProductShow />
@@ -107,9 +106,8 @@ const HomePage = () => {
       {/* pet's fake articles section ends*/}
 
       {/* 3rd banner */}
-      <div className="bg-yellow-200 mt-8 h-[90vh] flex items-center justify-center px-6 md:px-12 lg:px-24 rounded-b-3xl">
-        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-between">
-
+      <div className=" mt-8 flex items-center justify-center px-4 md:px-6 lg:px-12 xl:px-24 rounded-b-3xl">
+        <div className="container bg-yellow-200 mx-auto flex flex-col lg:flex-row items-center justify-between p-4">
 
           {/* Left Side: Text and Buttons */}
           <div className="lg:w-1/2">
@@ -118,7 +116,7 @@ const HomePage = () => {
             </h1>
             <p className="text-2xl">We Need Help. So Do They</p>
             <p className="text-lg text-gray-700 mb-8">
-              Adopt a pet and give it a home. It will be love you back unconditionally
+              Adopt a pet and give it a home. It will love you back unconditionally.
             </p>
 
             {/* Buttons */}
@@ -129,19 +127,23 @@ const HomePage = () => {
 
               <button className="border-2 border-[#072D50] text-[#072D50] font-medium px-6 py-3 rounded-full flex items-center hover:bg-[#072D50] hover:text-white transition duration-300">
                 View Intro +
-
               </button>
-
             </div>
           </div>
 
           {/* Right Side: Image */}
-          <div className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end">
-            <img src={third_pic} alt="Woman holding a dog" className=" rotate-90 object-fit:cover" />
+          <div className="lg:w-1/2 mt-8 lg:mt-0 flex justify-center lg:justify-end overflow-hidden">
+            <img
+              src={third_pic} // Make sure this path is correct
+              alt="Woman holding a dog"
+              className="h-auto max-h-[400px] object-cover transform rotate-90"
+            />
           </div>
         </div>
       </div>
       {/* 3rd banner ends */}
+
+
 
       {/* footer */}
       <Footer />
