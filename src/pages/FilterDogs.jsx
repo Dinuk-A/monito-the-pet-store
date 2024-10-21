@@ -1,5 +1,5 @@
 import Footer from "../components/Footer";
-import DogShowcase from "../components/DogShowcase";
+import DogShowcase from "../components/PetsShowcase";
 import Header from "../components/Header";
 
 // page to show all dogs and do filterings

@@ -1,5 +1,5 @@
 import FirstBanner from "../components/FirstBanner";
-import PetsShow from "../components/PetsShow";
+import DogsShow from "../components/PetsShow";
 import ProductShow from "../components/ProductShow";
 import sec_pic from "../assets/images/secondpic.png"
 import partners_pic from "../assets/images/partners.png"
@@ -14,7 +14,7 @@ const HomePage = () => {
       <FirstBanner />
 
       {/* dogs cards list */}
-      <PetsShow />
+      <DogsShow />
 
       {/* 2nd banner */}
       <div className=" mx-auto flex items-center justify-center px-4 md:px-12 lg:px-24 rounded-b-3xl mt-8 ">

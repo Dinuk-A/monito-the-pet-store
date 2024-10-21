@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Filter, X } from 'lucide-react';
-import { useDogs } from '../components/DogContext';
+import { useDogs } from './PetContext';
 
 const FilterPanel = ({
   selectedGender,
@@ -271,15 +271,34 @@ const DogShowcase = () => {
 
         {/* Dogs List */}
         <div className="lg:w-3/4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {displayedDogs.map((dog) => (
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {/* {displayedDogs.map((dog) => (
               <div key={dog.id} className="border rounded-lg p-4 shadow">
                 <img src={dog.imageUrl} alt={dog.name} className="w-full h-40 object-cover rounded" />
                 <h3 className="text-lg font-semibold mt-2">{dog.name}</h3>
                 <p className="text-gray-500">{dog.breed}</p>
                 <p className="text-gray-900 font-bold">${dog.price}</p>
               </div>
+            ))} */}
+
+            {displayedDogs.map((dog) => (
+              <Link to={`/pet/${dog.id}`} key={dog.id} className="bg-white rounded-lg shadow-lg p-4">
+                {/* Image Display */}
+                <img
+                  src={dog.images[0]}
+                  alt={dog.name}
+                  className="w-full h-40 object-cover rounded-t-lg mb-4"
+                />
+                {/* Card Structure */}
+                <h3 className="text-lg font-bold">MO{dog.id} - {dog.name}</h3>
+
+                <p className="text-gray-600">Gene: {dog.gender} - Age: {dog.age} Months</p>
+
+                <p className="text-gray-800 font-semibold">Price: {dog.price}VND</p>
+              </Link>
             ))}
+
           </div>
 
           {/* Pagination */}

@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage.jsx";
-import PetDetails from "./components/PetDetails.jsx";
-import Dog from "./pages/Dog.jsx"; // Import the Dog page
-import { DogProvider } from './components/DogContext';
+import DogDetails from "./components/PetDetails.jsx";
+import Dog from "./pages/FilterDogs.jsx";
+import { DogProvider } from './components/PetContext.jsx';
 
 // Main App component
 function App() {
@@ -20,7 +20,7 @@ function App() {
           <Route path="/dog" element={<Dog />} />
 
           {/* for fake dog cards */}
-          <Route path="/pet/:id" element={<PetDetails />} />
+          <Route path="/pet/:id" element={<DogDetails />} />
 
         </Routes>
       </Router>

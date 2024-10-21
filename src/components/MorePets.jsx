@@ -2,15 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const DogsShow = () => {
+const MoreDogs = () => {
   const [pets, setPets] = useState([]);
+  const [randomPets, setRandomPets] = useState([]); // To store the random 4 pets
   const navigate = useNavigate();
 
   // Fetch the pets list
   const getPetsInfo = () => {
-    axios.get("https://monitor-backend-rust.vercel.app/api/pets")
-      .then(res => setPets(res.data))
-      .catch(err => console.log(err));
+    axios
+      .get("https://monitor-backend-rust.vercel.app/api/pets")
+      .then((res) => {
+        setPets(res.data);
+        getRandomPets(res.data); // Randomly pick 4 pets after data is fetched
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // Randomly select 4 pets from the list
+  const getRandomPets = (petsList) => {
+    const shuffled = petsList.sort(() => 0.5 - Math.random()); // Shuffle the pets
+    const selectedPets = shuffled.slice(0, 4); // Select the first 4 pets from the shuffled array
+    setRandomPets(selectedPets);
   };
 
   // Always run when the page loads
@@ -33,7 +45,6 @@ const DogsShow = () => {
       <p className="text-sm">What's new?</p>
       <div className="flex justify-between items-start">
         <p className="text-lg">Take a look</p>
-        {/* Updated button with click handler */}
         <button 
           onClick={handleViewMoreClick} 
           className="bg-blue-500 text-white px-4 py-2 rounded-full"
@@ -42,9 +53,9 @@ const DogsShow = () => {
         </button>
       </div>
 
-      {/* Render pet cards */}
+      {/* Render randomly selected pet cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-        {pets.map(pet => (
+        {randomPets.map((pet) => (
           <div
             key={pet.id}
             onClick={() => handleCardClick(pet.id)} 
@@ -67,4 +78,4 @@ const DogsShow = () => {
   );
 };
 
-export default DogsShow;
+export default MoreDogs;

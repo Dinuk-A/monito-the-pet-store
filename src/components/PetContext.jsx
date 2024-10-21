@@ -16,11 +16,8 @@ export const DogProvider = ({ children }) => {
             const additionalInfo = "This is a loving dog that will be a great companion. Please provide a caring home.";
 
             for (let i = 1; i <= 50; i++) {
-                const ageMonths = Math.floor(Math.random() * 60) + 1;
-                const ageYears = Math.floor(ageMonths / 12);
-                const monthsRemainder = ageMonths % 12;
-
-                const publishedDate = new Date(2024, 1, 12);
+                
+                const publishedDate = new Date(2024, 10, 18);
                 const formattedDate = publishedDate.toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' });
 
                 // Include both images in the dog object
@@ -30,14 +27,16 @@ export const DogProvider = ({ children }) => {
                     id: i,
                     name: `Dog ${i}`,
                     breed: breeds[i % 3],
+                    size : breeds[i % 3].split(' ')[0],
                     gender: i % 2 === 0 ? 'Male' : 'Female',
                     color: colors[i % colors.length],
                     price: i * 1000,
                     SKU: `#10000${i}`,
-                    age: `${monthsRemainder} Month${monthsRemainder !== 1 ? 's' : ''}, ${ageYears} Year${ageYears !== 1 ? 's' : ''}`,
+                    age: Math.ceil(Math.random()*12),
                     vaccinated: 'Yes',
                     dewormed: 'Yes',
                     microchip: 'Yes',
+                    cert: 'Yes',
                     location: randomCities[i % randomCities.length],
                     publishedDate: formattedDate,
                     additionalInfo: additionalInfo,
