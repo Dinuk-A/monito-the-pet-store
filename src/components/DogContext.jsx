@@ -11,7 +11,7 @@ export const DogProvider = ({ children }) => {
         const fetchDogs = () => {
             const fakeDogs = [];
             const breeds = ['Small Dog', 'Medium Dog', 'Large Dog'];
-            const colors = ['Brown', 'White', 'Black', 'Golden', 'Spotted'];
+            const colors = ['Red', 'Apricot', 'Black', 'Black & white', 'Silver' , 'Tan'];
             const randomCities = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo'];
             const additionalInfo = "This is a loving dog that will be a great companion. Please provide a caring home.";
 
@@ -41,7 +41,7 @@ export const DogProvider = ({ children }) => {
                     location: randomCities[i % randomCities.length],
                     publishedDate: formattedDate,
                     additionalInfo: additionalInfo,
-                    images: images // Store both images
+                    images: images 
                 });
             }
             setDogs(fakeDogs);
