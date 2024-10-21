@@ -15,6 +15,7 @@ export const DogProvider = ({ children }) => {
             const randomCities = ['Colombo', 'Kandy', 'Galle', 'Jaffna', 'Negombo'];
             const additionalInfo = "This is a loving dog that will be a great companion. Please provide a caring home.";
 
+            //CREATE FAKE DOG OBJS TO SIMULATE THE FILTERING PROCESS
             for (let i = 1; i <= 50; i++) {
                 
                 const publishedDate = new Date(2024, 10, 18);

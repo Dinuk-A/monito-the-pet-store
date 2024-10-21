@@ -8,11 +8,11 @@ import 'swiper/css/navigation';
 // Import modules from swiper modules
 import { Navigation, Pagination } from 'swiper/modules';
 
-const Customers = () => {
+const CustomersComp = () => {
     const [customers, setCustomers] = useState([]);
 
     useEffect(() => {
-        // Function to fetch images from the API
+        //to fetch customers from  API
         const fetchImages = async () => {
             try {
                 const response = await axios.get('https://monitor-backend-rust.vercel.app/api/customers');
@@ -54,4 +54,4 @@ const Customers = () => {
     );
 };
 
-export default Customers;
+export default CustomersComp;

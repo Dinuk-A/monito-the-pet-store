@@ -1,8 +1,8 @@
 import React from 'react';
 import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'; 
-import monito_logo from "../assets/images/logo.png"; // Adjust the path as needed
+import monito_logo from "../assets/images/logo.png"; 
 
-const Footer = () => {
+const FooterComp = () => {
   return (
     <footer className="bg-[#F4EAD2] text-center pt-10 mt-8 pb-6">
       {/* Subscribe Section */}
@@ -63,4 +63,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default FooterComp;

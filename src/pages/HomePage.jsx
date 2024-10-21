@@ -1,20 +1,20 @@
-import FirstBanner from "../components/FirstBanner";
-import DogsShow from "../components/PetsShow";
-import ProductShow from "../components/ProductShow";
+import FirstBannerComp from "../components/FirstBannerComp";
+import DefaultPetsShowComp from "../components/DefaultPetsShowComp";
+import ProductShowComp from "../components/ProductShowComp";
 import sec_pic from "../assets/images/secondpic.png"
 import partners_pic from "../assets/images/partners.png"
 import third_pic from "../assets/images/thirdpic.png"
-import Footer from "../components/Footer";
+import Footer from "../components/FooterComp";
 
 
 const HomePage = () => {
   return (
     <>
       {/* banner on top also with navbar */}
-      <FirstBanner />
+      <FirstBannerComp />
 
       {/* dogs cards list */}
-      <DogsShow />
+      <DefaultPetsShowComp />
 
       {/* 2nd banner */}
       <div className=" mx-auto flex items-center justify-center px-4 md:px-12 lg:px-24 rounded-b-3xl mt-8 ">
@@ -51,7 +51,7 @@ const HomePage = () => {
 
 
       {/* products cards list */}
-      <ProductShow />
+      <ProductShowComp />
 
       {/* partners' logos image section */}
       <div className="container mx-auto py-12 hidden md:block">
@@ -142,8 +142,6 @@ const HomePage = () => {
         </div>
       </div>
       {/* 3rd banner ends */}
-
-
 
       {/* footer */}
       <Footer />

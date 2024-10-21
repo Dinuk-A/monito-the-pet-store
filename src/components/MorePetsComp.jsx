@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const MoreDogs = () => {
+const MorePetsComp = () => {
   const [pets, setPets] = useState([]);
   const [randomPets, setRandomPets] = useState([]); // To store the random 4 pets
   const navigate = useNavigate();
@@ -78,4 +78,4 @@ const MoreDogs = () => {
   );
 };
 
-export default MoreDogs;
+export default MorePetsComp;

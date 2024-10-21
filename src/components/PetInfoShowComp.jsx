@@ -1,18 +1,18 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useDogs } from './PetContext'; // Custom hook to get dog data
-import Customers from './Customers';
-import Footer from './Footer';
-import MorePups from './MorePets';
-import Header from './Header';
+import Customers from './CustomersComp';
+import Footer from './FooterComp';
+import ProductShowComp from './MorePetsComp';
+import Header from './HeaderComp';
 
 const PetDetails = () => {
   const { id } = useParams();
-  const dogs = useDogs(); // Get dogs from context
-  const dog = dogs.find(d => d.id === parseInt(id)); // Find the dog by ID
+  const dogs = useDogs();
+  const dog = dogs.find(d => d.id === parseInt(id));
 
   if (!dog) {
-    return <div>Dog not found</div>; // Handle case where dog is not found
+    return <div>Dog not found</div>;
   }
 
   return (
@@ -156,7 +156,7 @@ const PetDetails = () => {
       <Customers></Customers>
 
       {/* more puppies */}
-      <MorePups></MorePups>
+      <ProductShowComp></ProductShowComp>
 
       {/* footer */}
       <Footer></Footer>

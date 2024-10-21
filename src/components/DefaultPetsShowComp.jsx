@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const DogsShow = () => {
+const DefaultPetsShowComp = () => {
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
 
@@ -20,12 +20,12 @@ const DogsShow = () => {
 
   // Handle click on the dog card to navigate to its details
   const handleCardClick = (id) => {
-    navigate(`/dog/${id}`); // Navigates to the dog details page
+    navigate(`/pet/${id}`); // Navigates to the dog details page
   };
 
   // Handle click on the 'View More' button to navigate to the Dog page
   const handleViewMoreClick = () => {
-    navigate('/dog');
+    navigate('/pet');
   };
 
   return (
@@ -51,7 +51,7 @@ const DogsShow = () => {
             className="bg-white rounded-lg shadow-lg overflow-hidden h-[400px] cursor-pointer"
           >
             <img
-              src={pet.image || '/path/to/default-image.jpg'} // Display dog image or default
+              src={pet.image || '/path/to/default-image.jpg'} 
               alt={pet.breed}
               className="w-full h-[70%] object-contain"
             />
@@ -67,4 +67,4 @@ const DogsShow = () => {
   );
 };
 
-export default DogsShow;
+export default DefaultPetsShowComp;

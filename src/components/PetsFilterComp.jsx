@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { Filter, X } from 'lucide-react';
 import { useDogs } from './PetContext';
 
+
+//FILTER DOGS BY VARIOUS PARAMS
 const FilterPanel = ({
   selectedGender,
   setSelectedGender,
@@ -158,7 +160,9 @@ const FilterPanel = ({
   </div>
 );
 
-const DogShowcase = () => {
+
+//SHOW FILTERED DOGS 
+const PetsShowcase = () => {
   const dogs = useDogs();
   const [currentPage, setCurrentPage] = useState(1);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -359,4 +363,4 @@ const DogShowcase = () => {
   );
 };
 
-export default DogShowcase;
+export default PetsShowcase;

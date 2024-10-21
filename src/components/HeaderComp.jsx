@@ -3,7 +3,7 @@ import { FaBars, FaSearch, FaTimes } from 'react-icons/fa';
 import { Link } from "react-router-dom"; // Import Link from react-router-dom
 import monito_logo from "../assets/images/logo.png";
 
-const Header = () => {
+const HeaderComp = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isSearchActive, setSearchActive] = useState(false);  // To handle mobile search icon click
 
@@ -105,4 +105,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderComp;

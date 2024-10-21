@@ -1,7 +1,7 @@
 import w_w_dog from "../assets/images/firstpic.png"
-import Header from "./Header"
+import Header from "./HeaderComp"
 
-const FirstBanner = () => {
+const FirstBannerComp = () => {
     return (
         <>
         {/* header nav bar */}
@@ -48,4 +48,4 @@ const FirstBanner = () => {
 }
 
 
-export default FirstBanner;
+export default FirstBannerComp;
