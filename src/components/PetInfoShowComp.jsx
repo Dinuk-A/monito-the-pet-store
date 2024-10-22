@@ -67,7 +67,7 @@ const PetDetails = () => {
             </div>
             {/* IMAGE / CAROUSAL SECTION ENDS*/}
 
-            {/* GUARANTEE SECTION / STATIC */}
+            {/* GUARANTEE SECTION / HARDCODED */}
             <div className="mt-4 space-y-2">
               <div className="bg-yellow-100 p-2 rounded-md flex items-center justify-start">
                 <span className="text-s font-semibold"> 🐕‍🦺 100% health guarantee for pets</span>
@@ -77,23 +77,6 @@ const PetDetails = () => {
               </div>
             </div>
             {/* GUARANTEE SECTION ENDS */}
-
-
-            {/* SOCIAL MEDIA ICONS */}
-            {/* <div className="mt-4 flex space-x-4 sm:hidden" >
-              <a href="#" className="text-gray-500 hover:text-blue-600">
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">
-                <i className="fab fa-twitter"></i>
-              </a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a href="#" className="text-gray-500 hover:text-blue-600">
-                <i className="fab fa-youtube"></i>
-              </a>
-            </div> */}
             
             {/*SOCIAL MEDIA ICONS */}
             <div className="flex space-x-6 ml-auto">
