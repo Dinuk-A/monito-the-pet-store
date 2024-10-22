@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import { Filter, X } from 'lucide-react';
 import { useDogs } from './PetContext';
 
-
-//FILTER DOGS BY VARIOUS PARAMS
+//SEPARATE COMP FOR CONTAIN FILTERING OPTIONS
 const FilterPanel = ({
   selectedGender,
   setSelectedGender,
@@ -23,17 +22,20 @@ const FilterPanel = ({
   setIsDrawerOpen,
   priceError
 }) => (
+
   <div className="bg-white p-6">
     <div className="flex justify-between items-center mb-6 lg:hidden">
       <h2 className="text-xl font-semibold">Filters</h2>
+      {/* CLOSE BUTTON (X) */}
       <button onClick={() => setIsDrawerOpen(false)}>
         <X className="h-6 w-6" />
       </button>
     </div>
 
-    {/* Gender Filter - Changed to checkboxes and stacked */}
+    {/* Gender Filter*/}
     <div className="mb-4">
       <h3 className="text-lg font-semibold mb-2">Gender</h3>
+      {/* MALE CB */}
       <div className="flex flex-col gap-2">
         <label className="flex items-center gap-2">
           <input
@@ -47,6 +49,8 @@ const FilterPanel = ({
           />
           Male
         </label>
+
+        {/* FEMALE CB */}
         <label className="flex items-center gap-2">
           <input
             type="checkbox"
@@ -63,7 +67,7 @@ const FilterPanel = ({
     </div>
     <hr className="my-4" />
 
-    {/* Color Filter - Unchanged */}
+    {/* COLOR FILTER */}
     <div className="mb-4">
       <h3 className="text-lg font-semibold mb-2">Color</h3>
       <div className="flex flex-col gap-2">
@@ -73,6 +77,8 @@ const FilterPanel = ({
               type="checkbox"
               value={color}
               checked={selectedColors.includes(color)}
+              // IF THIS COLOUR IS ALREADY CHECKED AND USER UNCHECKS IT ==> REMOVE IT FROM FILTERING LIST
+              // IF THIS COLOUR IS NOT CHECKED AND USER CHECKS IT ==> ADD IT TO THE FILTERING LIST
               onChange={(e) => {
                 const value = e.target.value;
                 setSelectedColors((prev) =>
@@ -83,6 +89,7 @@ const FilterPanel = ({
                 setCurrentPage(1);
               }}
             />
+            {/* SHOW COLOUR OPTIONS ALONG WITH THE REAL COLOUR REPRESENTATION AS A CIRCLE*/}
             <span className="block w-4 h-4 rounded-full" style={{ backgroundColor: color }}></span>
             {color}
           </label>
@@ -91,7 +98,7 @@ const FilterPanel = ({
     </div>
     <hr className="my-4" />
 
-    {/* Price Filter - Added error message display */}
+    {/* PRICE FILTER */}
     <div className="mb-4">
       <h3 className="text-lg font-semibold mb-2">Price</h3>
       <div className="flex gap-2">
@@ -116,13 +123,14 @@ const FilterPanel = ({
           className="border rounded p-2 w-1/2"
         />
       </div>
+      {/* IF THERES AN ERROR IN USER INPUTTED PRICE VALUES ==> SHOW THIS ERROR MESSAGE BELOW */}
       {priceError && (
         <p className="text-red-500 text-sm mt-2">{priceError}</p>
       )}
     </div>
     <hr className="my-4" />
 
-    {/* Breed Filter - Unchanged */}
+    {/* BREED FILTER*/}
     <div className="mb-4">
       <h3 className="text-lg font-semibold mb-2">Breed</h3>
       <div className="flex flex-col gap-2">
@@ -132,6 +140,8 @@ const FilterPanel = ({
               type="checkbox"
               value={breed}
               checked={selectedBreed.includes(breed)}
+              // IF THIS OPTION IS ALREADY CHECKED AND USER UNCHECKS IT ==> REMOVE IT FROM FILTERING LIST
+              // IF THIS OPTION IS NOT CHECKED AND USER CHECKS IT ==> ADD IT TO THE FILTERING LIST
               onChange={(e) => {
                 const value = e.target.value;
                 setSelectedBreed((prev) =>
@@ -148,7 +158,7 @@ const FilterPanel = ({
       </div>
     </div>
 
-    {/* Reset Filters Button */}
+    {/* RESET BTN TO CLEAR ALL THE FILTERINGS AND SHOW ALL THE PET RESULTS */}
     <div className="mb-4">
       <button
         className="w-full bg-red-500 text-white p-2 rounded-lg hover:bg-red-600"
@@ -159,17 +169,18 @@ const FilterPanel = ({
     </div>
   </div>
 );
+//SEPARATE COMP FOR CONTAIN FILTERING OPTIONS ENDS
 
 
-//SHOW FILTERED DOGS 
+//SHOW FILTERED DOGS COMPONENT
 const PetsShowcase = () => {
   const dogs = useDogs();
   const [currentPage, setCurrentPage] = useState(1);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const itemsPerPage = 15;
 
-  // Filter states
-  const [selectedGender, setSelectedGender] = useState('');  // Changed to single value
+  // FILTERING STATUSES
+  const [selectedGender, setSelectedGender] = useState('');
   const [selectedColors, setSelectedColors] = useState([]);
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -177,47 +188,61 @@ const PetsShowcase = () => {
   const [sortOption, setSortOption] = useState('popular');
   const [priceError, setPriceError] = useState('');
 
-  // Price validation
+  // BASIC VALIDATIONS FOR PRICE INPUTS
   useEffect(() => {
     if (minPrice && maxPrice) {
       if (Number(minPrice) > Number(maxPrice)) {
-        setPriceError('Minimum price cannot be greater than maximum price');
+        setPriceError('Minimum price cannot be greater than maximum price, Please enter the correct values');
       } else {
         setPriceError('');
       }
     } else if (minPrice < 0 || maxPrice < 0) {
-      setPriceError('Price cannot be negative');
+      setPriceError('Price cannot be negative, Please enter the correct values');
+    } else if (minPrice == 0 && maxPrice == 0) {
+      setPriceError('Both price cannot be Equal to zero, Please enter the correct values');
     } else {
       setPriceError('');
     }
   }, [minPrice, maxPrice]);
 
-  // Filtering logic with validation
+  // MAIN FILTERING FN 
   const filteredDogs = dogs.filter((dog) => {
+    //FILTER AND SHOW THE SELECTED GENDER'S RESULTS OR IF NOT SHOW ALL GENDERS
     const genderMatch = selectedGender ? dog.gender === selectedGender : true;
+
+    //FILTER AND SHOW THE SELECTED COLOUR'S RESULTS OR IF NOT SHOW ALL COLOURS
     const colorMatch = selectedColors.length > 0 ? selectedColors.includes(dog.color) : true;
+
+    //ONLY INCLUDE THIS WHEN THERES NO ERROR IN PRICE INPUTS
     const priceMatch = !priceError && (
       (minPrice ? dog.price >= Number(minPrice) : true) &&
       (maxPrice ? dog.price <= Number(maxPrice) : true)
     );
+
+    //FILTER AND SHOW THE SELECTED BREED'S RESULTS OR IF NOT SHOW ALL BREEDS
     const breedMatch = selectedBreed.length > 0 ? selectedBreed.includes(dog.breed) : true;
 
+    //COMBINE ALL FILTERINGS AT ONCE
     return genderMatch && colorMatch && priceMatch && breedMatch;
   });
 
+  //SORT THE ALREADY FILTERED DOGS WITH THIS NEW OPTIONS(POPULARITY / PRICE)
   const sortedDogs = [...filteredDogs].sort((a, b) => {
     if (sortOption === 'price') {
       return a.price - b.price;
     }
+    //IF THE SELECTED OPTION IS "Popular" ==> IT WILL BE SORTED BASED ON DOGS' "id" PROP ('1' MEANS MORE POPULAR THAN '2')
     return a.id - b.id;
   });
 
+  //TO SUPPORT PAGINATION
   const totalPages = Math.ceil(sortedDogs.length / itemsPerPage);
   const displayedDogs = sortedDogs.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
 
+  //FN TO CLEAR ALL THE INPUTS + SHOW ALL PET CARDS W/O ANY FILTERINGS
   const resetFilters = () => {
     setSelectedGender('');
     setSelectedColors([]);
@@ -231,8 +256,9 @@ const PetsShowcase = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      {/* Mobile Header */}
+
       <div className="lg:hidden flex justify-between items-center mb-6">
+        {/*SORT OPTION FOR MOBILE DEVICES */}
         <select
           className="border p-2 rounded"
           value={sortOption}
@@ -241,18 +267,24 @@ const PetsShowcase = () => {
           <option value="popular">Popular</option>
           <option value="price">Price</option>
         </select>
+        {/*SORT OPTION FOR MOBILE DEVICES ENDS*/}
+        {/* FILTER ICON FOR MOBILE DEVICES */}
         <button
           onClick={() => setIsDrawerOpen(true)}
           className="p-2 rounded-lg bg-gray-100"
         >
           <Filter className="h-6 w-6" />
         </button>
+        {/* FILTER ICON FOR MOBILE DEVICES ENDS*/}
       </div>
 
-      {/* Main Content */}
+      {/* MAIN CONTENT */}
       <div className="flex flex-col lg:flex-row gap-6">
-        {/* Desktop Sidebar */}
+
+        {/* FOR LARGER SCREENS*/}
         <div className="hidden lg:block lg:w-1/4 bg-white p-6 shadow-lg rounded-lg">
+
+          {/* CALL FILTERING OPTIONS CONTAINER (ON LEFT SIDE) */}
           <FilterPanel
             selectedGender={selectedGender}
             setSelectedGender={setSelectedGender}
@@ -271,30 +303,24 @@ const PetsShowcase = () => {
             setIsDrawerOpen={setIsDrawerOpen}
             priceError={priceError}
           />
+          {/* FILTERING CONTAINER FOR LARGER SCREENS ENDS */}
         </div>
 
-        {/* Dogs List */}
+        {/* FILTERED DOGS' CARDS LIST (RIGHT SIDE) */}
         <div className="lg:w-3/4">
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            {/* {displayedDogs.map((dog) => (
-              <div key={dog.id} className="border rounded-lg p-4 shadow">
-                <img src={dog.imageUrl} alt={dog.name} className="w-full h-40 object-cover rounded" />
-                <h3 className="text-lg font-semibold mt-2">{dog.name}</h3>
-                <p className="text-gray-500">{dog.breed}</p>
-                <p className="text-gray-900 font-bold">${dog.price}</p>
-              </div>
-            ))} */}
-
+            {/* CREATE A CLICKABLE CARD FOR EACH DOG THAT FILTERED AND NEEDED TO BE SHOWN AS A RESULT */}
             {displayedDogs.map((dog) => (
               <Link to={`/pet/${dog.id}`} key={dog.id} className="bg-white rounded-lg shadow-lg p-4">
-                {/* Image Display */}
+                
+                {/* IF ITS A MALE DOG => SHOW 1ST IMAGE, IF ITS FEMALE => SHOW OTHER IMAGE*/}
                 <img
-                  src={dog.images[0]}
+                  src={dog.gender === "Male" ? dog.images[0] : dog.images[1]}
                   alt={dog.name}
                   className="w-full h-40 object-cover rounded-t-lg mb-4"
                 />
-                {/* Card Structure */}
+                {/* OTHER INFO */}
                 <h3 className="text-lg font-bold">MO{dog.id} - {dog.name}</h3>
 
                 <p className="text-gray-600">Gene: {dog.gender} - Age: {dog.age} Months</p>
@@ -302,10 +328,11 @@ const PetsShowcase = () => {
                 <p className="text-gray-800 font-semibold">Price: {dog.price}VND</p>
               </Link>
             ))}
+            {/* CARD ENDS */}
 
           </div>
 
-          {/* Pagination */}
+          {/* SWIPER JS PAGINATIONS */}
           <div className="flex justify-center mt-4">
             <button
               disabled={currentPage === 1}
@@ -331,10 +358,12 @@ const PetsShowcase = () => {
               Next
             </button>
           </div>
+           {/* SWIPER JS PAGINATIONS ENDS*/}
         </div>
+       
       </div>
 
-      {/* Mobile Filter Drawer */}
+      {/* TW DRAWER TO BE USED IN MOBILE DEVICES */}
       {isDrawerOpen && (
         <div className="fixed inset-0 bg-gray-800 bg-opacity-50 z-50 lg:hidden">
           <div className="absolute right-0 top-0 h-full w-3/4 bg-white p-6 overflow-y-auto">
@@ -357,8 +386,9 @@ const PetsShowcase = () => {
               priceError={priceError}
             />
           </div>
-        </div>
+        </div>        
       )}
+        {/* TW DRAWER TO BE USED IN MOBILE DEVICES ENDS */}
     </div>
   );
 };
