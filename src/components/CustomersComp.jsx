@@ -4,33 +4,33 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
-// Import modules from swiper modules
 import { Navigation, Pagination } from 'swiper/modules';
 
 const CustomersComp = () => {
     const [customers, setCustomers] = useState([]);
 
-    useEffect(() => {
-        //to fetch customers from  API
-        const fetchImages = async () => {
-            try {
-                const response = await axios.get('https://monitor-backend-rust.vercel.app/api/customers');
-                setCustomers(response.data);
-            } catch (error) {
-                console.error("Error fetching images:", error);
-            }
-        };
+    //FETCH CUSTOMER DATA FROM API
+    const fetchImages = async () => {
+        try {
+            const response = await axios.get('https://monitor-backend-rust.vercel.app/api/customers');
+            setCustomers(response.data);
+        } catch (error) {
+            console.error("Error fetching images:", error);
+        }
+    };
 
+    //RUN THIS FN IN EVERY PAGE LOADING
+    useEffect(() => {
         fetchImages();
     }, []);
 
     return (
+        // MAIN CONTAINER
         <div className="p-4">
             <div className="bg-gray-100 p-4 rounded-md">
                 <h2 className="text-blue-500 font-bold text-lg">Our lovely customers</h2>
 
-                {/* Swiper Slider */}
+                {/* SWIPER COMPONENT FOR CAROUSAL FEATURES */}
                 <Swiper
                     modules={[Pagination, Navigation]}
                     spaceBetween={20}
@@ -39,6 +39,7 @@ const CustomersComp = () => {
                     pagination={{ clickable: true }}
                     className="mt-4"
                 >
+                    {/* USE FETCHED CX LIST TO CREATE IMAGES(CAROUSAL SLIDES) */}
                     {customers.map((customer, index) => (
                         <SwiperSlide key={index}>
                             <img

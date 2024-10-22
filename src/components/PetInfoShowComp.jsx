@@ -1,28 +1,40 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { useDogs } from './PetContext'; // Custom hook to get dog data
+
+//IMPORT THE CUSTOM HOOK TO CONSUME dogs DATA
+import { useDogs } from './PetContext';
 import Customers from './CustomersComp';
 import Footer from './FooterComp';
-import ProductShowComp from './MorePetsComp';
+import MorePetsComp from './MorePetsComp';
 import Header from './HeaderComp';
+import { FaFacebookF, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa';
 
 const PetDetails = () => {
+
+  //EXTRACT 'id' FROM URL
   const { id } = useParams();
+
+  //USE THE IMPORTED HOOK TO GET dogs LIST
   const dogs = useDogs();
+
+  //FIND THE SPECIFIC DOG FROM THAT LIST USING THE 'id'
   const dog = dogs.find(d => d.id === parseInt(id));
 
+  //IF NO RESULTS FOUND FOR GIVEN ID
   if (!dog) {
     return <div>Dog not found</div>;
   }
 
   return (
     <>
-      {/* header */}
+      {/* HEADER COMP */}
       <Header></Header>
+      {/* HEADER COMP ENDS*/}
 
-      {/* main component */}
+      {/* MAIN CONTAINER */}
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* Breadcrumb */}
+
+        {/* STATIC BREAD CRUMS */}
         <div className="flex items-center justify-between mb-4 text-sm text-gray-500">
           <nav className="flex space-x-2">
             <a href="#" className="hover:text-blue-600">Home</a>
@@ -34,23 +46,28 @@ const PetDetails = () => {
             <a href="#" className="hover:text-blue-600">{dog.name}</a>
           </nav>
         </div>
+        {/* STATIC BREAD CRUMS ENDS*/}
 
+        {/* DOG INFO DISPLAY CONTAINER */}
         <div className="flex flex-col lg:flex-row lg:space-x-10">
 
-          {/* Left Side (Images Section) */}
+          {/* LEFT SIDE */}
           <div className="lg:w-1/2">
+
+            {/* IMAGE / CAROUSAL SECTION */}
             <div className="relative w-full h-96 mb-4">
-              <img src={dog.images[0]} alt={dog.name} className="w-full h-full object-cover rounded-md" />
+              <img src={dog.gender === "Male" ? dog.images[0] : dog.images[1]} alt={dog.name} className="w-full h-full object-cover rounded-md" />
             </div>
 
-            {/* Small images */}
+            {/* SMALL IMGS */}
             <div className="flex space-x-2 overflow-x-auto">
               {dog.images.slice(1).map((image, index) => (
                 <img key={index} src={image} alt={dog.name} className="w-20 h-20 object-cover rounded-md" />
               ))}
             </div>
+            {/* IMAGE / CAROUSAL SECTION ENDS*/}
 
-            {/* Guarantees Section */}
+            {/* GUARANTEE SECTION / STATIC */}
             <div className="mt-4 space-y-2">
               <div className="bg-yellow-100 p-2 rounded-md flex items-center justify-start">
                 <span className="text-s font-semibold"> 🐕‍🦺 100% health guarantee for pets</span>
@@ -59,10 +76,11 @@ const PetDetails = () => {
                 <span className="text-s font-semibold"> 🐶 100% guarantee of pet identification</span>
               </div>
             </div>
+            {/* GUARANTEE SECTION ENDS */}
 
 
-            {/* Social Media Icons */}
-            <div className="mt-4 flex space-x-4 sm:hidden" >
+            {/* SOCIAL MEDIA ICONS */}
+            {/* <div className="mt-4 flex space-x-4 sm:hidden" >
               <a href="#" className="text-gray-500 hover:text-blue-600">
                 <i className="fab fa-facebook"></i>
               </a>
@@ -75,15 +93,36 @@ const PetDetails = () => {
               <a href="#" className="text-gray-500 hover:text-blue-600">
                 <i className="fab fa-youtube"></i>
               </a>
+            </div> */}
+            
+            {/*SOCIAL MEDIA ICONS */}
+            <div className="flex space-x-6 ml-auto">
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                <FaFacebookF />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                <FaTwitter />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                <FaInstagram />
+              </a>
+              <a href="#" className="text-gray-600 hover:text-gray-900">
+                <FaYoutube />
+              </a>
             </div>
+            {/* SOCIAL MEDIA ICONS ENDS*/}
           </div>
+          {/* LEFT SIDE ENDS*/}
 
-          {/* Right Side (Details Section) */}
+          {/* RIGHT SIDE */}
           <div className="lg:w-1/2">
+
+            {/* NAME AND PRICE */}
             <h2 className="text-3xl font-bold mb-2">{dog.name}</h2>
             <p className="text-2xl text-blue-600 font-semibold mb-4">{dog.price.toFixed(3)} VND</p>
+            {/* NAME AND PRICE ENDS*/}
 
-            {/* Buttons */}
+            {/* 2 BTNS */}
             <div className="flex space-x-4 mb-6">
               <button className="bg-blue-950 text-white px-4 py-2 rounded-full hover:bg-blue-700">Contact us</button>
               <button className="border-4 border-blue-950
@@ -91,8 +130,9 @@ const PetDetails = () => {
                 Chat with Monito
               </button>
             </div>
+            {/* 2 BTNS ENDS*/}
 
-            {/* Information Table */}
+            {/* DOG INFO MAIN TABLE */}
             <div className="bg-white rounded-md shadow-md p-4">
               <table className="w-full text-sm text-left text-gray-500">
                 <tbody>
@@ -147,18 +187,23 @@ const PetDetails = () => {
                 </tbody>
               </table>
             </div>
+            {/* DOG INFO MAIN TABLE ENDS */}
 
           </div>
+          {/* RIGHT SIDE ENDS*/}
+
         </div>
+        {/* DOG INFO DISPLAY CONTAINER ENDS*/}
+
       </div>
 
-      {/* customers */}
+      {/* CUSTOMERS */}
       <Customers></Customers>
 
-      {/* more puppies */}
-      <ProductShowComp></ProductShowComp>
+      {/* MORE PUPPIES */}
+      <MorePetsComp></MorePetsComp>
 
-      {/* footer */}
+      {/* FOOTER */}
       <Footer></Footer>
     </>
   );

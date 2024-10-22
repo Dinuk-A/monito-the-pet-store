@@ -8,18 +8,20 @@ import { DogProvider } from './components/PetContext.jsx';
 // Main App component
 function App() {
   return (
+
+    //WRAPPING WITH DOG CONTEXT TO PASS dogs OBJECTS
     <DogProvider>
       <Router>
         <Routes>
 
-          {/* app always starts with the homepage */}
+          {/* ALWAYS STARTS WITH THIS */}
           <Route path="/" element={<Navigate to="/homepage" />} />
           <Route path="/homepage" element={<HomePage />} />
 
-          {/* route to the Dog page */}
+          {/* ROUTE TO FILTERING PAGE */}
           <Route path="/pet" element={<FilterPets />} />
 
-          {/* for fake dog cards */}
+          {/* ROUTE TO SINGLE DOG INFO DISPLAYING PAGE */}
           <Route path="/pet/:id" element={<PetInfoShowComp />} />
 
         </Routes>

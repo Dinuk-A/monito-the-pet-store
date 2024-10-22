@@ -10,13 +10,13 @@ import Footer from "../components/FooterComp";
 const HomePage = () => {
   return (
     <>
-      {/* banner on top also with navbar */}
+      {/* BANNER (HEADER IS INCLUDED) */}
       <FirstBannerComp />
 
-      {/* dogs cards list */}
+      {/* DEFAULT DOGS LIST(BY API) */}
       <DefaultPetsShowComp />
 
-      {/* 2nd banner */}
+      {/* 2ND BANNER */}
       <div className=" mx-auto flex items-center justify-center px-4 md:px-12 lg:px-24 rounded-b-3xl mt-8 ">
         <div className="container bg-blue-500 mx-auto flex flex-col lg:flex-row items-center justify-between">
 
@@ -47,13 +47,12 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* 2nd banner ends */}
+      {/* 2ND BANNER ENDS*/}
 
-
-      {/* products cards list */}
+      {/*PRODUCTS CARD LIST (BY API) */}
       <ProductShowComp />
 
-      {/* partners' logos image section */}
+      {/*PARTNERING BRANDS LOGO LIST*/}
       <div className="container mx-auto py-12 hidden md:block">
         {/* Flexbox to align text left and button right */}
         <div className="flex items-center justify-between mb-8">
@@ -70,8 +69,9 @@ const HomePage = () => {
           <img src={partners_pic} alt="Partners Logos" className="w-full max-w-6xl object-contain" />
         </div>
       </div>
+      {/* PARTNERING BRANDS LOGO LIST* ENDS /}
 
-      {/* pet's fake articles section >>> not dynamic>> hardcoded */}
+      {/* 3 FAKE PET ARTICLES TO SHOWCASE >> NOT BY APIS >> HARDCODED */}
       <div className="bg-white p-4 rounded-lg shadow-md mx-4 md:mx-8 lg:mx-16">
         <h2 className="text-2xl font-bold text-gray-800 mb-4">Useful Pet Knowledge</h2>
 
@@ -103,9 +103,9 @@ const HomePage = () => {
           <button className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">View More</button>
         </div>
       </div>
-      {/* pet's fake articles section ends*/}
+      {/* SOME FAKE PET ARTICLES TO SHOWCASE ENDS*/}
 
-      {/* 3rd banner */}
+      {/* 3RD BANNER */}
       <div className=" mt-8 flex items-center justify-center px-4 md:px-6 lg:px-12 xl:px-24 rounded-b-3xl">
         <div className="container bg-yellow-200 mx-auto flex flex-col lg:flex-row items-center justify-between p-4">
 
@@ -141,11 +141,11 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      {/* 3rd banner ends */}
+      {/* 3RD BANNER ENDS */}
 
-      {/* footer */}
+      {/* FOOTER */}
       <Footer />
-      {/* footer ends */}
+      {/* FOOTER ENDS */}
 
 
     </>

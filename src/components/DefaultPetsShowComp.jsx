@@ -6,24 +6,31 @@ const DefaultPetsShowComp = () => {
   const [pets, setPets] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch the pets list
+  // FETCH AND GET THE PETS DATA BY API
   const getPetsInfo = () => {
     axios.get("https://monitor-backend-rust.vercel.app/api/pets")
       .then(res => setPets(res.data))
       .catch(err => console.log(err));
   };
 
-  // Always run when the page loads
+  // ALWAYS RUN THIS WHEN THE PAGE LOADS
   useEffect(() => {
     getPetsInfo();
   }, []);
 
-  // Handle click on the dog card to navigate to its details
+  /* NOTE : ORIFGINALLY EACH CARD CLICK SHOULD BE NAVIGATED TO A PAGE 
+            WHERE IT SHOWS THAT PARTICULAR PET'S DETAILS,,,BUT SINCE THIS API'S DATA DOESNT INCLUDE SOME INFORMATION LIKE SIZE,COLOUR,..ETC (AS SHOWN IN FIGMA'S 3RD IMAGE) I MANUALLY CREATED 50 FAKE DOGS OBJECTS AND STORED THEM IN 'pet' DIRECTIORY
+            
+            PLEASE CLICK 'Category' OR 'View More' BUTTON */
+
   const handleCardClick = (id) => {
-    navigate(`/pet/${id}`); // Navigates to the dog details page
+    alert("PLEASE CLICK 'View More' BUTTON OR READ THE COMMENTS" )
+
+    //THIS IS HOW IT SHOULD BE ORIGINALLY
+    // navigate(`/pet/${id}`); 
   };
 
-  // Handle click on the 'View More' button to navigate to the Dog page
+  // TAKES USER TO THE FILTERING PAGE
   const handleViewMoreClick = () => {
     navigate('/pet');
   };
@@ -33,7 +40,7 @@ const DefaultPetsShowComp = () => {
       <p className="text-sm">What's new?</p>
       <div className="flex justify-between items-start">
         <p className="text-lg">Take a look</p>
-        {/* Updated button with click handler */}
+
         <button 
           onClick={handleViewMoreClick} 
           className="bg-blue-500 text-white px-4 py-2 rounded-full"
@@ -42,7 +49,7 @@ const DefaultPetsShowComp = () => {
         </button>
       </div>
 
-      {/* Render pet cards */}
+      {/* GENERATE DEFAULT DOGS CARDS FROM API*/}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
         {pets.map(pet => (
           <div

@@ -4,40 +4,53 @@ import axios from "axios";
 
 const MorePetsComp = () => {
   const [pets, setPets] = useState([]);
-  const [randomPets, setRandomPets] = useState([]); // To store the random 4 pets
+
+  //IN MORE DOGS SECTION , SHOW ONLY RANDOM 4 DOGS CARDS (AS SHOWN IN FIGMA)
+  const [randomPets, setRandomPets] = useState([]);
   const navigate = useNavigate();
 
-  // Fetch the pets list
+  // GET THE PET LIST
   const getPetsInfo = () => {
     axios
       .get("https://monitor-backend-rust.vercel.app/api/pets")
       .then((res) => {
         setPets(res.data);
-        getRandomPets(res.data); // Randomly pick 4 pets after data is fetched
+
+        //SELECT AND STORE 4 RANDOM DOGS FROM ABOVE FETCHED LIST(AS SHOWN IN FIGMA)
+        getRandomPets(res.data);
       })
       .catch((err) => console.log(err));
   };
 
-  // Randomly select 4 pets from the list
+  // FN TO SELECT 4 RANDOM DOGS TO SHOW 
   const getRandomPets = (petsList) => {
-    const shuffled = petsList.sort(() => 0.5 - Math.random()); // Shuffle the pets
-    const selectedPets = shuffled.slice(0, 4); // Select the first 4 pets from the shuffled array
+    //SHUFFLE PETS IN A RANDOM ORDER
+    const shuffled = petsList.sort(() => 0.5 - Math.random());
+
+    //GET THE 1ST 4 ELEMENTS
+    const selectedPets = shuffled.slice(0, 4);
     setRandomPets(selectedPets);
   };
 
-  // Always run when the page loads
+  // ALWAYS RUN WHEN PAGE LOADS
   useEffect(() => {
     getPetsInfo();
   }, []);
 
-  // Handle click on the dog card to navigate to its details
+  /* NOTE : ORIFGINALLY EACH CARD CLICK SHOULD BE NAVIGATED TO A PAGE 
+            WHERE IT SHOWS THAT PARTICULAR PET'S DETAILS,,,BUT SINCE THIS API'S DATA DOESNT INCLUDE SOME INFORMATION LIKE SIZE,COLOUR,..ETC (AS SHOWN IN FIGMA'S 3RD IMAGE) I MANUALLY CREATED 50 FAKE DOGS OBJECTS AND STORED THEM IN 'pet' DIRECTIORY
+            
+            PLEASE CLICK 'Category' OR 'View More' BUTTON */
+
   const handleCardClick = (id) => {
-    navigate(`/dog/${id}`); // Navigates to the dog details page
+    alert("PLEASE CLICK 'View More' BUTTON OR READ THE COMMENTS")
+
+    //THIS IS HOW IT SHOULD BE ORIGINALLY
+    // navigate(`/pet/${id}`); 
   };
 
-  // Handle click on the 'View More' button to navigate to the Dog page
   const handleViewMoreClick = () => {
-    navigate('/dog');
+    navigate('/pet');
   };
 
   return (
@@ -45,24 +58,24 @@ const MorePetsComp = () => {
       <p className="text-sm">What's new?</p>
       <div className="flex justify-between items-start">
         <p className="text-lg">Take a look</p>
-        <button 
-          onClick={handleViewMoreClick} 
+        <button
+          onClick={handleViewMoreClick}
           className="bg-blue-500 text-white px-4 py-2 rounded-full"
         >
           View More
         </button>
       </div>
 
-      {/* Render randomly selected pet cards */}
+      {/* SHOW RANDOM 4 CARDS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mt-4">
         {randomPets.map((pet) => (
           <div
             key={pet.id}
-            onClick={() => handleCardClick(pet.id)} 
+            onClick={() => handleCardClick(pet.id)}
             className="bg-white rounded-lg shadow-lg overflow-hidden h-[400px] cursor-pointer"
           >
             <img
-              src={pet.image || '/path/to/default-image.jpg'} // Display dog image or default
+              src={pet.image } 
               alt={pet.breed}
               className="w-full h-[70%] object-contain"
             />
