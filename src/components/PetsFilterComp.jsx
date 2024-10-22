@@ -110,7 +110,7 @@ const FilterPanel = ({
             setMinPrice(e.target.value);
             setCurrentPage(1);
           }}
-          className="border rounded p-2 w-1/2"
+          className={`border-2 rounded p-2 w-1/2 ${priceError ? 'border-red-500' : ''}`}
         />
         <input
           type="number"
@@ -120,7 +120,7 @@ const FilterPanel = ({
             setMaxPrice(e.target.value);
             setCurrentPage(1);
           }}
-          className="border rounded p-2 w-1/2"
+          className={`border-2 rounded p-2 w-1/2 ${priceError ? 'border-red-500' : ''}`}
         />
       </div>
       {/* IF THERES AN ERROR IN USER INPUTTED PRICE VALUES ==> SHOW THIS ERROR MESSAGE BELOW */}
@@ -193,13 +193,14 @@ const PetsShowcase = () => {
     if (minPrice && maxPrice) {
       if (Number(minPrice) > Number(maxPrice)) {
         setPriceError('Minimum price cannot be greater than maximum price, Please enter the correct values');
+      } else if (minPrice == 0 && maxPrice == 0) {
+        setPriceError('Both prices cannot be Equal to zero(0), Please enter the correct values');
       } else {
         setPriceError('');
       }
     } else if (minPrice < 0 || maxPrice < 0) {
       setPriceError('Price cannot be negative, Please enter the correct values');
-    } else if (minPrice == 0 && maxPrice == 0) {
-      setPriceError('Both price cannot be Equal to zero, Please enter the correct values');
+
     } else {
       setPriceError('');
     }
@@ -308,12 +309,29 @@ const PetsShowcase = () => {
 
         {/* FILTERED DOGS' CARDS LIST (RIGHT SIDE) */}
         <div className="lg:w-3/4">
+
+          {/* SHOW BREED AND , NUMBER OF RESULTS */}
+          <div className="flex justify-between items-center mb-6">
+            <div className="flex gap-4 items-center">
+              <h2 className="text-2xl font-semibold">
+
+                {/* IF NO INPUT IS GIVEN FOR BREED SHOW THE DEFAULT VALUE AS "ALL GOGS" */}
+                {selectedBreed.length > 0 ? selectedBreed.join(', ') : 'All Dogs'}
+              </h2>
+
+              {/* # OF RESULTS */}
+              <p className="text-lg text-gray-500">({filteredDogs.length} puppies)</p>
+              {/* # OF RESULTS ENDS*/}
+            </div>
+          </div>
+          {/* SHOW BREED AND , NUMBER OF RESULTS ENDS*/}
+
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
             {/* CREATE A CLICKABLE CARD FOR EACH DOG THAT FILTERED AND NEEDED TO BE SHOWN AS A RESULT */}
             {displayedDogs.map((dog) => (
               <Link to={`/pet/${dog.id}`} key={dog.id} className="bg-white rounded-lg shadow-lg p-4">
-                
+
                 {/* IF ITS A MALE DOG => SHOW 1ST IMAGE, IF ITS FEMALE => SHOW OTHER IMAGE*/}
                 <img
                   src={dog.gender === "Male" ? dog.images[0] : dog.images[1]}
@@ -329,6 +347,13 @@ const PetsShowcase = () => {
               </Link>
             ))}
             {/* CARD ENDS */}
+
+            {/* IF NO RESULTS FOUNDS */}
+            {filteredDogs.length === 0 && (
+              <div className="col-span-2 sm:col-span-2 lg:col-span-3 text-center p-4">
+                <p className="text-lg text-red-500">No adorable companions found ! Maybe widen your search or check back later for new arrivals !  🐶🎁🐱 </p>
+              </div>
+            )}
 
           </div>
 
@@ -358,9 +383,9 @@ const PetsShowcase = () => {
               Next
             </button>
           </div>
-           {/* SWIPER JS PAGINATIONS ENDS*/}
+          {/* SWIPER JS PAGINATIONS ENDS*/}
         </div>
-       
+
       </div>
 
       {/* TW DRAWER TO BE USED IN MOBILE DEVICES */}
@@ -386,9 +411,9 @@ const PetsShowcase = () => {
               priceError={priceError}
             />
           </div>
-        </div>        
+        </div>
       )}
-        {/* TW DRAWER TO BE USED IN MOBILE DEVICES ENDS */}
+      {/* TW DRAWER TO BE USED IN MOBILE DEVICES ENDS */}
     </div>
   );
 };
